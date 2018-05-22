@@ -9,12 +9,19 @@ class App extends Component {
   state = {
     shows: []
   }
-
+  componentDidMount(){
+    Adapter.getShows().then( resp =>
+      this.setState({
+        shows: resp
+      })
+    )
+  }
   render = () => {
+    console.log(this.state.shows)
     return (
       <div className="App">
-        <TVShowList />
-        <Filter />
+          <Filter shows={this.state.shows}/>
+        <TVShowList shows={this.state.shows}/>
       </div>
     );
   }

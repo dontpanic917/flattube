@@ -1,18 +1,34 @@
 import React from 'react';
-import {Card, Col} from 'react-materialize'
+import {Card, Col, CardTitle} from 'react-materialize'
 
-const tvShow = () {
+class tvShow extends React.Component {
+  state = {
+      clicked: false
+  }
 
-  return (
-    <Col m={6} s={12}>
-      <Card className='blue-grey darken-1'
-        textClassName='white-text'
-        title="Title of Show"
-      >
-        Show Summary here!
+  handleClick = () => {
+    this.setState({clicked: !this.state.clicked})
+  }
+
+
+
+  render(){
+   const clickedRender = () => {return (<Col m={6} s={12}>
+      <Card title={this.props.show.name} onClick={this.handleClick}>
+        <p>{this.props.show.season}</p>
       </Card>
-    </Col>
-  );
+    </Col>)}
+   const defaultRender = () => {return (<Col m={6} s={12}>
+      <Card title={this.props.show.name} onClick={this.handleClick}>
+        <p><a href={this.props.show.url}>This is a link</a></p>
+      </Card>
+    </Col>)}
+
+    return (
+      [this.state.clicked ? defaultRender() : clickedRender()]
+
+    );
+  }
 
 
 }
